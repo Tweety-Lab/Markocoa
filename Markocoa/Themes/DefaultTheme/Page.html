@@ -13,23 +13,56 @@
         }
 
         .sidebar {
-            width: 220px;
-            background-color: #f0f0f0;
-            padding: 20px;
+            width: 180px;
+            background-color: #242424;
+            color: white;
+            padding-left: 20px;
+            padding-top: 10px;
             box-sizing: border-box;
             overflow-y: auto;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            transition: transform 0.3s ease; /* Category Animation */
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Slide right on hover */
+        .sidebar ul:hover {
+            transform: translateX(10px);
         }
 
         .content {
             flex-grow: 1;
             padding: 20px;
         }
+
+        /* CONTENT STYLING */
+        .content code {
+            background-color: #f4f4f4;
+            color: #3669eb;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .content img {
+            max-width: 50%;
+            max-height: 50%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
     <div class="sidebar">
         {{ for category in categories }}
-        <h3>{{ category.category_name }}</h3>
+        <h4>{{ category.category_name | string.upcase }}</h4>
         <ul>
             {{ for page in category.pages }}
             <li><a href="{{ page.path }}">{{ page.name }}</a></li>
@@ -39,6 +72,10 @@
     </div>
 
     <div class="content">
+        <p>
+            <span style="color: #b8b8b8;">Site /</span>
+            <span style="color: #424242; font-weight: bold;"> {{ page_category_title }} / {{ page_title }}</span>
+        </p>
         {{ page_content }}
     </div>
 </body>

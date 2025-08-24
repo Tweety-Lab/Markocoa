@@ -60,6 +60,7 @@ internal static class Compiler
                 {
                     PageContent = markdownHTML,
                     PageTitle = Path.GetFileNameWithoutExtension(file),
+                    PageCategoryTitle = category.CategoryName,
                     Categories = pagesForSidebar
                 };
 
