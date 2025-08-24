@@ -1,1 +1,23 @@
-{{ page_content }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    {{ for page in pages }}
+    <nav>
+        <ul>
+            <li><a href="{{ page.path }}">{{ page.name }}</a></li>
+        </ul>
+    </nav>
+    {{ end }}
+    {{ page_content }}
+</body>
+</html>
