@@ -37,7 +37,8 @@ internal static class Compiler
             var pageList = category.Files.Select(f => new Page
             {
                 Name = Path.GetFileNameWithoutExtension(f),
-                Path = Path.ChangeExtension(f, ".html")
+                Path = "/" + Path.Combine(category.CategoryName, Path.ChangeExtension(Path.GetFileName(f), ".html"))
+                             .Replace("\\", "/") // root-relative URL for navigation
             }).ToList();
 
             pagesForSidebar.Add(new SidebarCategory
@@ -50,6 +51,10 @@ internal static class Compiler
         // Compile all markdown files
         foreach (var category in settings.Categories ?? new List<Category>())
         {
+            // Make a folder for this category
+            string categoryOutputPath = Path.Combine(outputPath, category.CategoryName);
+            Directory.CreateDirectory(categoryOutputPath);
+
             foreach (string file in category.Files)
             {
                 string template = File.ReadAllText(Path.Combine(Path.GetDirectoryName(themePath) ?? "./", themeSettings.PageTemplate));
@@ -65,13 +70,16 @@ internal static class Compiler
                 };
 
                 string html = TemplateEngine.Render(template, context);
-                File.WriteAllText(Path.Combine(outputPath, Path.ChangeExtension(Path.GetFileName(file), ".html")), html);
+                string outputFilePath = Path.Combine(categoryOutputPath, Path.ChangeExtension(Path.GetFileName(file), ".html"));
+                File.WriteAllText(outputFilePath, html);
 
                 // Copy resources referenced in the markdown
                 List<FileInfo> resources = Markdown.ExtractReferencedResources(File.ReadAllText(Path.Combine(projectPath, file)));
                 foreach (FileInfo resource in resources)
-                    File.Copy(Path.Combine(projectPath, resource.Name), Path.Combine(outputPath, resource.Name), true);
-
+                {
+                    string destResourcePath = Path.Combine(categoryOutputPath, resource.Name);
+                    File.Copy(Path.Combine(projectPath, resource.Name), destResourcePath, true);
+                }
             }
         }
     }
