@@ -1,6 +1,4 @@
-﻿
-using Markdig;
-using Markocoa.Themes;
+﻿using Markocoa.Themes;
 
 namespace Markocoa.Utilities;
 
@@ -67,6 +65,12 @@ internal static class Compiler
 
                 string html = TemplateEngine.Render(template, context);
                 File.WriteAllText(Path.Combine(outputPath, Path.ChangeExtension(Path.GetFileName(file), ".html")), html);
+
+                // Copy resources referenced in the markdown
+                List<FileInfo> resources = Markdown.ExtractReferencedResources(File.ReadAllText(Path.Combine(projectPath, file)));
+                foreach (FileInfo resource in resources)
+                    File.Copy(Path.Combine(projectPath, resource.Name), Path.Combine(outputPath, resource.Name), true);
+
             }
         }
     }
