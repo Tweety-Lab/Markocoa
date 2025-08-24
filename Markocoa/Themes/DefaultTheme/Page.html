@@ -12,7 +12,6 @@
 
     <style>
         body {
-            height: 100%;
             font-family: Arial, sans-serif;
             margin: 0;
             display: flex;
@@ -21,6 +20,8 @@
         }
 
         .sidebar {
+            position: fixed;
+            height: 100vh;
             width: 180px;
             background-color: #242424;
             color: white;
@@ -30,10 +31,14 @@
             overflow-x: hidden;
         }
 
-            .sidebar ul {
-                padding-left: 15px;
+            .sidebar li {
+                padding-left: 0px;
                 list-style-type: none;
                 transition: transform 0.3s ease;
+            }
+
+            .sidebar ul {
+                padding-left: 15px;
             }
 
             .sidebar a {
@@ -41,14 +46,14 @@
                 color: white;
             }
 
-            .sidebar ul:hover {
+            .sidebar li:hover {
                 transform: translateX(10px);
             }
 
         .content {
+            margin-left: 180px;
             flex-grow: 1;
             padding: 20px;
-            height: 100vh;
             max-width: 70vw;
             background-color: white;
             box-sizing: border-box;
@@ -64,6 +69,7 @@
                 width: 100%;
                 height: auto;
                 max-height: none;
+                position: absolute;
             }
 
             .content {
@@ -106,6 +112,10 @@
             font-family: Arial, sans-serif;
             font-size: 14px;
             line-height: 1.5;
+        }
+
+        a {
+            color: #3669eb;
         }
 
 
