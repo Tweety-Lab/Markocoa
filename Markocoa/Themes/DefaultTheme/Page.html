@@ -4,17 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page_title }}</title>
+    <style>
+        body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 220px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    {{ for category in categories }}
-    <h3>{{ category.category_name }}</h3>
-    <ul>
-        {{ for page in category.pages }}
-        <li><a href="{{ page.path }}">{{ page.name }}</a></li>
+    <div class="sidebar">
+        {{ for category in categories }}
+        <h3>{{ category.category_name }}</h3>
+        <ul>
+            {{ for page in category.pages }}
+            <li><a href="{{ page.path }}">{{ page.name }}</a></li>
+            {{ end }}
+        </ul>
         {{ end }}
-    </ul>
-    {{ end }}
+    </div>
 
-    {{ page_content }}
+    <div class="content">
+        {{ page_content }}
+    </div>
 </body>
 </html>
