@@ -1,6 +1,8 @@
 ﻿using Markocoa.Hosting;
 using CommandLine;
 using Markocoa.Utilities;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Markocoa.Commands;
 
@@ -71,10 +73,34 @@ internal class HostCommand : ICommand
             server.Refresh();
         };
 
-        Console.WriteLine("Hosting project with live reload. Press Ctrl+C to exit.");
+        // Open localhost in the default browser
+        OpenBrowser("http://localhost:8080");
 
         // Lock the thread
         while (true)
             Thread.Sleep(1000);
+    }
+
+    static void OpenBrowser(string url)
+    {
+        try
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", url);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", url);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to open browser: {ex.Message}");
+        }
     }
 }
