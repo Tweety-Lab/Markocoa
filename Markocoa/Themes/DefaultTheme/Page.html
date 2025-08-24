@@ -97,6 +97,47 @@
             display: block;
             margin: 10px 0;
         }
+
+        /* Base table styling */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 16px 0;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+            table th {
+                background-color: #f6f8fa;
+                border: 1px solid #d0d7de;
+                padding: 6px 13px;
+                text-align: left;
+                font-weight: 600;
+            }
+
+            table td {
+                border: 1px solid #d0d7de;
+                padding: 6px 13px;
+            }
+
+            /* Alternating row colors */
+            table tr:nth-child(even) {
+                background-color: #f6f8fa;
+            }
+
+            table tr:hover {
+                background-color: #f1f1f1;
+            }
+
+            /* Overflow for small screens */
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
     </style>
 </head>
 <body>
