@@ -57,8 +57,12 @@ internal static class Compiler
 
             foreach (string file in category.Files)
             {
+                string normalizedFile = file.Replace('/', Path.DirectorySeparatorChar)
+                            .Replace('\\', Path.DirectorySeparatorChar);
+                string markdownPath = Path.Combine(projectPath, normalizedFile);
+
                 string template = File.ReadAllText(Path.Combine(Path.GetDirectoryName(themePath) ?? "./", themeSettings.PageTemplate));
-                string markdownHTML = Markdown.ToHtml(File.ReadAllText(Path.Combine(projectPath, file)));
+                string markdownHTML = Markdown.ToHtml(File.ReadAllText(markdownPath));
 
                 // Write template
                 object context = new
@@ -77,8 +81,11 @@ internal static class Compiler
                 List<FileInfo> resources = Markdown.ExtractReferencedResources(File.ReadAllText(Path.Combine(projectPath, file)));
                 foreach (FileInfo resource in resources)
                 {
+                    // resource.FullName may be relative to Markdown file
+                    string resourcePath = Path.Combine(Path.GetDirectoryName(markdownPath)!, resource.Name);
                     string destResourcePath = Path.Combine(categoryOutputPath, resource.Name);
-                    File.Copy(Path.Combine(projectPath, resource.Name), destResourcePath, true);
+                    if (File.Exists(resourcePath))
+                        File.Copy(resourcePath, destResourcePath, true);
                 }
             }
         }

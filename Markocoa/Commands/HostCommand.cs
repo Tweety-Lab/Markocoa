@@ -81,6 +81,10 @@ internal class HostCommand : ICommand
             Thread.Sleep(1000);
     }
 
+    /// <summary>
+    /// Open the default web browser to the specified URL.
+    /// </summary>
+    /// <param name="url">URL to open.</param>
     static void OpenBrowser(string url)
     {
         try
