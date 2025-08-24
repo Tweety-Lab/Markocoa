@@ -1,5 +1,6 @@
 ﻿
 using System.Text.RegularExpressions;
+using Markdig;
 
 namespace Markocoa.Utilities;
 
@@ -13,7 +14,16 @@ internal static class Markdown
     /// </summary>
     /// <param name="markdown">Markdown content.</param>
     /// <returns>HTML content.</returns>
-    public static string ToHtml(string markdown) => Markdig.Markdown.ToHtml(markdown);
+    public static string ToHtml(string markdown)
+    {
+        // Create a Markdown pipeline
+        var pipeline = new MarkdownPipelineBuilder()
+            .UseAdvancedExtensions()
+            .Build();
+
+        // Convert Markdown to HTML
+        return Markdig.Markdown.ToHtml(markdown, pipeline);
+    }
 
     /// <summary>
     /// Extracts referenced resources from Markdown content.

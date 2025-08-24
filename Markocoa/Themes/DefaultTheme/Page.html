@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page_title }}</title>
+
+    <!-- Syntax Highlighting with Prism -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-csharp.min.js"></script>
+
     <style>
         body {
             height: 100%;
@@ -23,42 +29,47 @@
             overflow-x: clip;
         }
 
-        .sidebar ul {
-            padding-left: 15px;
-            list-style-type: none;
-            transition: transform 0.3s ease; /* Category Animation */
-        }
+            .sidebar ul {
+                padding-left: 15px;
+                list-style-type: none;
+                transition: transform 0.3s ease; /* Category Animation */
+            }
 
-        .sidebar a {
-            text-decoration: none;
-            color: white;
-        }
+            .sidebar a {
+                text-decoration: none;
+                color: white;
+            }
 
-        /* Slide right on hover */
-        .sidebar ul:hover {
-            transform: translateX(10px);
-        }
+            /* Slide right on hover */
+            .sidebar ul:hover {
+                transform: translateX(10px);
+            }
 
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-        }
+            .content {
+                flex-grow: 1;
+                padding: 20px;
+            }
 
-        /* CONTENT STYLING */
-        .content code {
-            background-color: #f4f4f4;
-            color: #3669eb;
-            padding: 2px 4px;
-            border-radius: 4px;
-        }
+            /* CONTENT STYLING */
+            .content code {
+                background-color: #f4f4f4;
+                color: #3669eb;
+                padding: 2px 4px;
+                border-radius: 4px;
+            }
 
-        .content img {
-            max-width: 50%;
-            max-height: 50%;
-            height: auto;
-            display: block;
-            margin: 10px 0;
-        }
+            .content pre[class*="language-"] {
+                font-size: 0.9em;
+                line-height: 1.4em;
+            }
+
+            .content img {
+                max-width: 50%;
+                max-height: 50%;
+                height: auto;
+                display: block;
+                margin: 10px 0;
+            }
     </style>
 </head>
 <body>
@@ -76,9 +87,9 @@
     <div class="content">
         <p>
             <span style="color: #b8b8b8;">Site /</span>
-            <span style="color: #424242; font-weight: bold;"> {{ page_category_title }} / {{ page_title }}</span>
+            <span style="color: #424242; font-weight: bold;">{{ page_category_title }} / {{ page_title }}</span>
         </p>
-        {{ page_content }}
+{{ page_content }}
     </div>
 </body>
 </html>
