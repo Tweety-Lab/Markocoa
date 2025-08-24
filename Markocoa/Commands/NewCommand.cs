@@ -30,7 +30,7 @@ This is a new Markocoa project. You can start editing the `Page.md` file to add 
         Directory.CreateDirectory(projectPath);
 
         // Create example page
-        File.WriteAllText($"{projectPath}Page.md", PAGE_TEMPLATE);
+        File.WriteAllText(System.IO.Path.Combine(projectPath, "Page.md"), PAGE_TEMPLATE);
 
         // Create default options
         ProjectSettings settings = new();
@@ -38,6 +38,6 @@ This is a new Markocoa project. You can start editing the `Page.md` file to add 
         settings.Files = new List<string> { "Page.md" };
 
         // Serialize project settings
-        File.WriteAllText($"{projectPath}{Name}.yml", Serializer.Serialize(settings));
+        File.WriteAllText(System.IO.Path.Combine(projectPath, $"{Name}.yml"), Serializer.Serialize(settings));
     }
 }
