@@ -20,10 +20,17 @@ internal static class Themes
         string[] themeFiles = Directory.GetFiles(rootDir, "*.yml", SearchOption.AllDirectories);
         foreach (string file in themeFiles)
         {
-            // Deserialize the YAML file to check the theme name
-            var settings = Serializer.Deserialize<ThemeSettings>(File.ReadAllText(file));
-            if (settings.Name == themeName)
-                return Path.GetDirectoryName(file) ?? string.Empty;
+            try
+            {
+                // Deserialize the YAML file to check the theme name
+                var settings = Serializer.Deserialize<ThemeSettings>(file);
+                if (settings.Name == themeName)
+                    return file ?? string.Empty;
+            }
+            catch
+            {
+                // Do nothing, if this occurs it typically means we opened a non-theme YAML file
+            }
         }
 
         // If not found, check the execution directory
@@ -31,10 +38,17 @@ internal static class Themes
         themeFiles = Directory.GetFiles(exeDir, "*.yml", SearchOption.AllDirectories);
         foreach (string file in themeFiles)
         {
-            // Deserialize the YAML file to check the theme name
-            var settings = Serializer.Deserialize<ThemeSettings>(File.ReadAllText(file));
-            if (settings.Name == themeName)
-                return Path.GetDirectoryName(file) ?? string.Empty;
+            try
+            {
+                // Deserialize the YAML file to check the theme name
+                var settings = Serializer.Deserialize<ThemeSettings>(file);
+                if (settings.Name == themeName)
+                    return file ?? string.Empty;
+            }
+            catch
+            {
+                // Do nothing, if this occurs it typically means we opened a non-theme YAML file
+            }
         }
 
         return null;

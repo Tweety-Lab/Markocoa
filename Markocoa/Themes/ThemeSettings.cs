@@ -15,5 +15,5 @@ internal class ThemeSettings
     /// <summary>
     /// Path to the page template file.
     /// </summary>
-    public string? PageTemplate { get; set; }
+    public string PageTemplate { get; set; } = string.Empty;
 }
