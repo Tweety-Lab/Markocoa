@@ -15,6 +15,13 @@ internal static class Compiler
     /// <param name="settings">Settings for the Markocoa project.</param>
     public static void Build(string projectPath, ProjectSettings settings)
     {
+        // Check if theme exists
+        if (Themes.Themes.GetThemePath(settings.Theme ?? "Default") == null)
+        {
+            Console.WriteLine($"Theme '{settings.Theme}' not found! Using default theme.");
+            settings.Theme = "Default";
+        }
+
         // Create output directory
         string outputPath = Path.Combine(projectPath, "build");
         Directory.CreateDirectory(outputPath);

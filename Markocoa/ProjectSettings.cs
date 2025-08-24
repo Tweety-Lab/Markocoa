@@ -13,6 +13,11 @@ internal class ProjectSettings
     public string? Name { get; set; }
 
     /// <summary>
+    /// The theme of the project.
+    /// </summary>
+    public string? Theme { get; set; } = "Default";
+
+    /// <summary>
     /// List of markdown files in the project.
     /// </summary>
     public List<string>? Files { get; set; }
