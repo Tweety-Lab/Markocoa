@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Markocoa.Hosting\Markocoa.Hosting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Themes\DefaultTheme\DefaultTheme.yml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
