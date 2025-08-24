@@ -32,22 +32,42 @@ internal static class Compiler
         string outputPath = Path.Combine(projectPath, "build");
         Directory.CreateDirectory(outputPath);
 
-        // Compile all markdown files in the project to html in the output directory
-        foreach (string file in settings.Files ?? new List<string>())
+        // Flatten list of all files for navigation context
+        var pagesForSidebar = new List<SidebarCategory>();
+        foreach (var category in settings.Categories ?? new List<Category>())
         {
-            string template = File.ReadAllText(Path.Combine(Path.GetDirectoryName(themePath) ?? "./", themeSettings.PageTemplate));
-            string markdownHTML = Markdown.ToHtml(File.ReadAllText(Path.Combine(projectPath, file)));
+            var pageList = category.Files.Select(f => new Page
+            {
+                Name = Path.GetFileNameWithoutExtension(f),
+                Path = Path.ChangeExtension(f, ".html")
+            }).ToList();
 
-            // Write template
-            object context = new
-            { 
-                PageContent = markdownHTML, 
-                PageTitle = Path.GetFileNameWithoutExtension(Path.GetFileName(file)),
-                Pages = settings.Files?.Select(f => new Page { Name = Path.GetFileNameWithoutExtension(Path.GetFileName(f)), Path = Path.ChangeExtension(f, ".html") })
-            };
+            pagesForSidebar.Add(new SidebarCategory
+            {
+                CategoryName = category.CategoryName,
+                Pages = pageList
+            });
+        }
 
-            string html = TemplateEngine.Render(template, context);
-            File.WriteAllText(Path.Combine(outputPath, Path.ChangeExtension(Path.GetFileName(file), ".html")), html);
+        // Compile all markdown files
+        foreach (var category in settings.Categories ?? new List<Category>())
+        {
+            foreach (string file in category.Files)
+            {
+                string template = File.ReadAllText(Path.Combine(Path.GetDirectoryName(themePath) ?? "./", themeSettings.PageTemplate));
+                string markdownHTML = Markdown.ToHtml(File.ReadAllText(Path.Combine(projectPath, file)));
+
+                // Write template
+                object context = new
+                {
+                    PageContent = markdownHTML,
+                    PageTitle = Path.GetFileNameWithoutExtension(file),
+                    Categories = pagesForSidebar
+                };
+
+                string html = TemplateEngine.Render(template, context);
+                File.WriteAllText(Path.Combine(outputPath, Path.ChangeExtension(Path.GetFileName(file), ".html")), html);
+            }
         }
     }
 }
@@ -57,4 +77,11 @@ class Page
 {
     public string Name { get; set; } = string.Empty;
     public string Path { get; set; } = string.Empty;
+}
+
+// A Category for the sidebar in a template context
+class SidebarCategory
+{
+    public string CategoryName { get; set; } = string.Empty;
+    public List<Page> Pages { get; set; } = new List<Page>();
 }

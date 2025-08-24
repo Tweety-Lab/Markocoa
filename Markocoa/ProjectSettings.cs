@@ -18,7 +18,23 @@ internal class ProjectSettings
     public string? Theme { get; set; } = "Default";
 
     /// <summary>
-    /// List of markdown files in the project.
+    /// List of categories containing files.
     /// </summary>
-    public List<string>? Files { get; set; }
+    public List<Category>? Categories { get; set; }
+}
+
+/// <summary>
+/// Represents a category with a list of files.
+/// </summary>
+internal class Category
+{
+    /// <summary>
+    /// The name of the category.
+    /// </summary>
+    public string CategoryName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The list of files under this category.
+    /// </summary>
+    public List<string> Files { get; set; } = new List<string>();
 }

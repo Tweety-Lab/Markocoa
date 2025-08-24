@@ -35,7 +35,14 @@ This is a new Markocoa project. You can start editing the `Page.md` file to add 
         // Create default options
         ProjectSettings settings = new();
         settings.Name = Name;
-        settings.Files = new List<string> { "Page.md" };
+        settings.Categories = new List<Category>
+        {
+            new Category
+            {
+                CategoryName = "Default",
+                Files = new List<string> { "Page.md" }
+            }
+        };
 
         // Serialize project settings
         File.WriteAllText(System.IO.Path.Combine(projectPath, $"{Name}.yml"), Serializer.Serialize(settings));
