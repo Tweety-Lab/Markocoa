@@ -117,7 +117,7 @@ internal class DeployCommand : ICommand
     {
         foreach (var file in Directory.GetFiles(repoPath, "*", SearchOption.TopDirectoryOnly))
         {
-            if (System.IO.Path.GetFileName(file).Equals(".git", StringComparison.OrdinalIgnoreCase))
+            if (System.IO.Path.GetFileName(file).Equals(".git", StringComparison.OrdinalIgnoreCase) || System.IO.Path.GetFileName(file).Equals("CNAME", StringComparison.OrdinalIgnoreCase))
                 continue;
             File.Delete(file);
         }
