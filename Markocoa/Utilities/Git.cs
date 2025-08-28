@@ -12,7 +12,7 @@ internal static class Git
     /// Executes a Git command.
     /// </summary>
     /// <param name="command">Command to execute.</param>
-    public static void Execute(string command, string workingDirectory)
+    public static bool Execute(string command, string workingDirectory)
     {
         var process = new Process
         {
@@ -29,5 +29,6 @@ internal static class Git
 
         process.Start();
         process.WaitForExit();
+        return process.ExitCode == 0;
     }
 }

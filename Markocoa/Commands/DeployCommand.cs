@@ -62,12 +62,20 @@ internal class DeployCommand : ICommand
         // Save current branch
         var currentBranch = repo.Head.FriendlyName;
 
-        // Switch to gh-pages branch or create it
-        Branch ghPages = repo.Branches["gh-pages"] ?? repo.CreateBranch("gh-pages");
-        LibGit2Sharp.Commands.Checkout(repo, ghPages);
-
         // Clean old files in the branch
         CleanWorkingDirectory(projectPath);
+
+        // Switch to gh-pages branch or create it
+        Branch ghPages = repo.Branches["gh-pages"] ?? repo.CreateBranch("gh-pages");
+
+        try
+        {
+            LibGit2Sharp.Commands.Checkout(repo, ghPages);
+        } catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to checkout gh-pages branch: {ex.Message}! Do you have unsaved changes?");
+            return;
+        }
 
         // Copy build files back from temp
         CopyDirectory(tempBuildFolder, projectPath);
@@ -75,11 +83,13 @@ internal class DeployCommand : ICommand
         // Stage all changes
         LibGit2Sharp.Commands.Stage(repo, "*");
 
+        Signature author = new Signature("Markocoa Bot", "bot@markocoa.com", DateTimeOffset.Now);
+        repo.Commit("Deploy to GitHub Pages.", author, author);
+
         // Force push to origin/gh-pages
         var remote = repo.Network.Remotes["origin"];
         string pushRefSpec = $"refs/heads/{ghPages.FriendlyName}:refs/heads/{ghPages.FriendlyName}";
 
-        // Push requires authentication — use Git.Execute for this
         Git.Execute("push origin gh-pages --force", projectPath);
 
         // Switch back to original branch
