@@ -16,13 +16,27 @@ internal static class Markdown
     /// <returns>HTML content.</returns>
     public static string ToHtml(string markdown)
     {
+        // Regex to replace links to other Markdown files with .html
+        string updatedMarkdown = Regex.Replace(markdown,
+            @"\[(.*?)\]\((.*?)\.md(\#.*?)?\)",
+            match =>
+            {
+                string text = match.Groups[1].Value;
+                string path = match.Groups[2].Value;
+                string fragment = match.Groups[3].Value; // optional #section
+                string htmlPath = path + ".html" + fragment;
+                return $"[{text}]({htmlPath})";
+            },
+            RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         // Create a Markdown pipeline
         var pipeline = new MarkdownPipelineBuilder()
             .UseAdvancedExtensions()
             .Build();
 
+
         // Convert Markdown to HTML
-        return Markdig.Markdown.ToHtml(markdown, pipeline);
+        return Markdig.Markdown.ToHtml(updatedMarkdown, pipeline);
     }
 
     /// <summary>
@@ -46,7 +60,8 @@ internal static class Markdown
             // Group 1 is for images, Group 2 is for links
             string path = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
 
-            if (!string.IsNullOrWhiteSpace(path))
+            // Ignore invalid or markdown files
+            if (!string.IsNullOrWhiteSpace(path) && !path.EndsWith(".md", StringComparison.OrdinalIgnoreCase))
             {
                 try
                 {
