@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ prettify page_title }}</title>
 
+    <!-- Google Fonts - Montserrat for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
     <!-- Syntax Highlighting with Prism -->
     <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
@@ -122,34 +125,34 @@
         }
 
 
-            table th {
-                background-color: #f6f8fa;
-                border: 1px solid #d0d7de;
-                padding: 6px 13px;
-                text-align: left;
-                font-weight: 600;
-            }
+        table th {
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            padding: 6px 13px;
+            text-align: left;
+            font-weight: 600;
+        }
 
-            table td {
-                border: 1px solid #d0d7de;
-                padding: 6px 13px;
-            }
+        table td {
+            border: 1px solid #d0d7de;
+            padding: 6px 13px;
+        }
 
-            /* Alternating row colors */
-            table tr:nth-child(even) {
-                background-color: #f6f8fa;
-            }
+        /* Alternating row colors */
+        table tr:nth-child(even) {
+            background-color: #f6f8fa;
+        }
 
-            table tr:hover {
-                background-color: #f1f1f1;
-            }
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
 
-            /* Overflow for small screens */
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
+        /* Overflow for small screens */
+        table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
 
         .content h1,
         .content h2,
@@ -157,8 +160,11 @@
         .content h4,
         .content h5,
         .content h6 {
+            /* Fancy Font */
+            font-family: 'Montserrat', sans-serif;
+            color: #222222;
             margin-bottom: 0;
-            padding-bottom: 0;
+            padding-bottom: 2px;
         }
 
         .content p,
@@ -167,7 +173,6 @@
         .content pre {
             margin-top: 0;
         }
-
     </style>
 </head>
 <body>
