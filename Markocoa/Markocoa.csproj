@@ -9,7 +9,20 @@
 	<!-- Pack as tool -->
 	<PackAsTool>true</PackAsTool>
 	<ToolCommandName>Markocoa</ToolCommandName>
+	<Title>Markocoa</Title>
+	<Authors>Tweety</Authors>
+	<RepositoryUrl>https://github.com/Tweety-Lab/Markocoa</RepositoryUrl>
+	<Description>A C# static site generator that utilizes markdown files to create lightweight, customizable websites.</Description>
+	<PackageProjectUrl>https://github.com/Tweety-Lab/Markocoa</PackageProjectUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
@@ -25,9 +38,11 @@
 
   <ItemGroup>
     <None Update="Themes\DefaultTheme\DefaultTheme.yml">
+	  <Pack>true</Pack>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Themes\DefaultTheme\Page.html">
+      <Pack>true</Pack>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
