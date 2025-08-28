@@ -30,18 +30,20 @@ This is a new Markocoa project. You can start editing the `Page.md` file to add 
         Directory.CreateDirectory(projectPath);
 
         // Create example page
-        File.WriteAllText(System.IO.Path.Combine(projectPath, "Page.md"), PAGE_TEMPLATE);
+        string pageDirectory = System.IO.Path.Combine(projectPath, "Default");
+        Directory.CreateDirectory(pageDirectory);
+        File.WriteAllText(System.IO.Path.Combine(pageDirectory, "Page.md"), PAGE_TEMPLATE);
 
         // Create default options
         ProjectSettings settings = new();
         settings.Name = Name;
-        settings.DefaultPage = "Page.md";
+        settings.DefaultPage = "Default/Page.md";
         settings.Categories = new List<Category>
         {
             new Category
             {
                 CategoryName = "Default",
-                Files = new List<string> { "Page.md" }
+                Files = new List<string> { "Default/Page.md" }
             }
         };
 
