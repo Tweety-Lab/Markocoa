@@ -18,6 +18,11 @@ internal class ProjectSettings
     public string? Theme { get; set; } = "Default";
 
     /// <summary>
+    /// The default page of the project.
+    /// </summary>
+    public string? DefaultPage { get; set; }
+
+    /// <summary>
     /// List of categories containing files.
     /// </summary>
     public List<Category>? Categories { get; set; }

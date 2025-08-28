@@ -48,6 +48,8 @@ internal static class Compiler
             });
         }
 
+        string? defaultPageOutputPath = null;
+
         // Compile all markdown files
         foreach (var category in settings.Categories ?? new List<Category>())
         {
@@ -77,6 +79,11 @@ internal static class Compiler
                 string outputFilePath = Path.Combine(categoryOutputPath, Path.ChangeExtension(Path.GetFileName(file), ".html"));
                 File.WriteAllText(outputFilePath, html);
 
+                // If this page matches the DefaultPage, record its output
+                string relativeFileKey = $"{category.CategoryName}/{Path.GetFileName(file)}";
+                if (!string.IsNullOrEmpty(settings.DefaultPage) && relativeFileKey.Equals(settings.DefaultPage, StringComparison.OrdinalIgnoreCase))
+                    defaultPageOutputPath = outputFilePath;
+
                 // Copy resources referenced in the markdown
                 List<FileInfo> resources = Markdown.ExtractReferencedResources(File.ReadAllText(Path.Combine(projectPath, file)));
                 foreach (FileInfo resource in resources)
@@ -89,6 +96,36 @@ internal static class Compiler
                 }
             }
         }
+
+        // After building all pages, create a redirect from /index.html to the default page
+        if (!string.IsNullOrEmpty(defaultPageOutputPath))
+        {
+            string indexPath = Path.Combine(outputPath, "index.html");
+
+            // Compute relative URL inside /build
+            string relativeTarget = defaultPageOutputPath.Substring(outputPath.Length)
+                .TrimStart(Path.DirectorySeparatorChar)
+                .Replace("\\", "/"); // normalize for URLs
+
+            string redirectHtml = $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv=""refresh"" content=""0; url=/{relativeTarget}"" />
+    <script>
+        window.location.replace('/{relativeTarget}');
+    </script>
+    <title>Redirecting...</title>
+</head>
+<body>
+    <p>Redirecting to <a href=""{relativeTarget}"">{relativeTarget}</a>...</p>
+</body>
+</html>";
+
+            File.WriteAllText(indexPath, redirectHtml);
+        }
+
+
     }
 }
 

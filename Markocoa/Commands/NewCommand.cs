@@ -35,6 +35,7 @@ This is a new Markocoa project. You can start editing the `Page.md` file to add 
         // Create default options
         ProjectSettings settings = new();
         settings.Name = Name;
+        settings.DefaultPage = "Page.md";
         settings.Categories = new List<Category>
         {
             new Category
