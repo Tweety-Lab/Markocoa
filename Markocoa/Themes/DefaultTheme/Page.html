@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page_title }}</title>
+    <title>{{ prettify page_title }}</title>
 
     <!-- Syntax Highlighting with Prism -->
     <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet" />
@@ -159,7 +159,7 @@
         <h4>{{ category.category_name | string.upcase }}</h4>
         <ul>
             {{ for page in category.pages }}
-            <li><a href="{{ page.path }}">{{ page.name }}</a></li>
+            <li><a href="{{ page.path }}">{{ prettify page.name }}</a></li>
             {{ end }}
         </ul>
         {{ end }}
@@ -168,7 +168,7 @@
     <div class="content">
         <p>
             <span style="color: #b8b8b8;">Site /</span>
-            <span style="color: #424242; font-weight: bold;">{{ page_category_title }} / {{ page_title }}</span>
+            <span style="color: #424242; font-weight: bold;">{{ page_category_title }} / {{ prettify page_title }}</span>
         </p>
 {{ page_content }}
     </div>
