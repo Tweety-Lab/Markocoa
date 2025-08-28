@@ -1,6 +1,8 @@
 # Markocoa 🍫
 Markocoa is a C# static site generator that utilizes markdown files to create lightweight, customizable websites.
 
+![Static Badge](https://img.shields.io/badge/License-MIT-blue) ![Static Badge](https://img.shields.io/badge/Release-v1.0.0-green)
+
 [Looking for an example?](https://www.tweety-lab.dev/)
 
 ## Installation
