@@ -12,7 +12,8 @@ internal class Program
     {
         typeof(NewCommand),
         typeof(BuildCommand),
-        typeof(HostCommand)
+        typeof(HostCommand),
+        typeof(DeployCommand),
     };
 
     static void Main(string[] args)
