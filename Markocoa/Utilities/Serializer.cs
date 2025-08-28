@@ -3,7 +3,7 @@
 /// <summary>
 /// Utility class for serializing and deserializing objects.
 /// </summary>
-internal static class Serializer
+public static class Serializer
 {
     /// <summary>
     /// Serializes an object to a YAML string.

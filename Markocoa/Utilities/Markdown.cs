@@ -7,7 +7,7 @@ namespace Markocoa.Utilities;
 /// <summary>
 /// Utility class for handling Markdown content.
 /// </summary>
-internal static class Markdown
+public static class Markdown
 {
     /// <summary>
     /// Converts Markdown to HTML.

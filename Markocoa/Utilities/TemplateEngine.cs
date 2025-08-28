@@ -8,7 +8,7 @@ namespace Markocoa.Utilities;
 /// <summary>
 /// Utility class for handling template rendering.
 /// </summary>
-internal static class TemplateEngine
+public static class TemplateEngine
 {
     /// <summary>
     /// Renders a template with the given parameters.
