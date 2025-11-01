@@ -115,16 +115,20 @@ internal class DeployCommand : ICommand
 
     private static void CleanWorkingDirectory(string repoPath)
     {
-        foreach (var file in Directory.GetFiles(repoPath, "*", SearchOption.TopDirectoryOnly))
+        var files = Directory.GetFiles(repoPath, "*", SearchOption.TopDirectoryOnly);
+        foreach (var file in files)
         {
-            if (System.IO.Path.GetFileName(file).Equals(".git", StringComparison.OrdinalIgnoreCase) || System.IO.Path.GetFileName(file).Equals("CNAME", StringComparison.OrdinalIgnoreCase))
+            var name = System.IO.Path.GetFileName(file);
+            if (string.Equals(name, "CNAME", StringComparison.OrdinalIgnoreCase))
                 continue;
             File.Delete(file);
         }
 
-        foreach (var dir in Directory.GetDirectories(repoPath, "*", SearchOption.TopDirectoryOnly))
+        var dirs = Directory.GetDirectories(repoPath, "*", SearchOption.TopDirectoryOnly);
+        foreach (var dir in dirs)
         {
-            if (System.IO.Path.GetFileName(dir).Equals(".git", StringComparison.OrdinalIgnoreCase))
+            var name = System.IO.Path.GetFileName(dir);
+            if (string.Equals(name, ".git", StringComparison.OrdinalIgnoreCase))
                 continue;
             Directory.Delete(dir, true);
         }
