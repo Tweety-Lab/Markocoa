@@ -13,6 +13,11 @@ internal class ProjectSettings
     public string? Name { get; set; }
 
     /// <summary>
+    /// The summary of the project to use in meta data.
+    /// </summary>
+    public string? Summary { get; set; }
+
+    /// <summary>
     /// The theme of the project.
     /// </summary>
     public string? Theme { get; set; } = "Default";

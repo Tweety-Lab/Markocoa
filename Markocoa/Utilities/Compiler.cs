@@ -111,11 +111,12 @@ internal static class Compiler
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name=""description"" content=""{settings.Summary ?? string.Empty}"">
     <meta http-equiv=""refresh"" content=""0; url=/{relativeTarget}"" />
     <script>
         window.location.replace('/{relativeTarget}');
     </script>
-    <title>Redirecting...</title>
+    <title>{settings.Name}</title>
 </head>
 <body>
     <p>Redirecting to <a href=""{relativeTarget}"">{relativeTarget}</a>...</p>

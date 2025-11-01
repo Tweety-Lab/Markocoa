@@ -30,7 +30,6 @@ internal class BuildCommand : ICommand
         // Assuming the first .yml file is the project settings
         ProjectSettings settings = Serializer.Deserialize<ProjectSettings>(files[0]);
 
-        // Build the site
         Compiler.Build(projectPath, settings);
     }
 }
