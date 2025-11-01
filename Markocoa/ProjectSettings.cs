@@ -28,6 +28,12 @@ internal class ProjectSettings
     public string? DefaultPage { get; set; }
 
     /// <summary>
+    /// List of domains to try and automatically deploy to.
+    /// </summary>
+    /// <remarks>This is used in different ways by different deploy targets.</remarks>
+    public List<string>? DeployTargets { get; set; }
+
+    /// <summary>
     /// List of categories containing files.
     /// </summary>
     public List<Category>? Categories { get; set; }

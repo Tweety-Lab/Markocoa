@@ -80,6 +80,9 @@ internal class DeployCommand : ICommand
         // Copy build files back from temp
         CopyDirectory(tempBuildFolder, projectPath);
 
+        // Deploy to domains
+        File.WriteAllText(System.IO.Path.Combine(projectPath, "CNAME"), string.Join("\n", settings.DeployTargets ?? Enumerable.Empty<string>()));
+
         // Stage all changes
         LibGit2Sharp.Commands.Stage(repo, "*");
 
