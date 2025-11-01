@@ -122,8 +122,6 @@ internal class DeployCommand : ICommand
         foreach (var file in files)
         {
             var name = System.IO.Path.GetFileName(file);
-            if (string.Equals(name, "CNAME", StringComparison.OrdinalIgnoreCase))
-                continue;
             File.Delete(file);
         }
 
